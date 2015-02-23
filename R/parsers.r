@@ -104,7 +104,8 @@ solr_parse.sr_facet <- function(input, parsetype=NULL, concat=',')
   # dirty code to process facet_pivot
  if(wt=='json')
   {
-    require(dplyr)
+    options(stringsAsFactors = FALSE)
+    require(plyr)
     fp <- input$facet_counts$facet_pivot
     fpr <- ldply(fp, function(x){
       d <- ldply(x, function(y){
