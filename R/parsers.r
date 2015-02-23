@@ -100,12 +100,31 @@ solr_parse.sr_facet <- function(input, parsetype=NULL, concat=',')
     nodes <- xpathApply(input, '//lst[@name="facet_ranges"]//int')
     if(length(nodes)==0){ rangesout <- NULL } else { rangesout <- nodes }
   }
-
+  
+  # dirty code to process facet_pivot
+ if(wt=='json')
+  {
+    require(dplyr)
+    fp <- input$facet_counts$facet_pivot
+    fpr <- ldply(fp, function(x){
+      d <- ldply(x, function(y){
+        z <- unlist(y)
+        m <- matrix(z[4:length(z)],ncol=3,byrow=TRUE)
+        suppressWarnings(df <-data.frame(z[2],z[3],m[,2],m[,3]))
+        names(df) <- c('par','total','chi','count')
+        df[is.na(df)] <- 0
+        df
+      })
+      d
+    })
+  }
+  
   # output
   return( list(facet_queries = replacelen0(fqout),
                facet_fields = replacelen0(ffout),
                facet_dates = replacelen0(datesout),
-               facet_ranges = replacelen0(rangesout)) )
+               facet_ranges = replacelen0(rangesout),
+               pivot_facet = replacelen0(fpr)) )
 }
 
 #' @method solr_parse sr_high
