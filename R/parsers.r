@@ -14,14 +14,14 @@
 #' consumption. The data format type is detected from the attribute "wt" on the
 #' sr_facet object.
 #' @export
-solr_parse <- function(input, parsetype, concat){
+solr_parse <- function(input, parsetype, concat,info ){
   UseMethod("solr_parse")
 }
 
 #' @method solr_parse sr_facet
 #' @export
 #' @rdname solr_parse
-solr_parse.sr_facet <- function(input, parsetype=NULL, concat=',')
+solr_parse.sr_facet <- function(input, parsetype=NULL, concat=',',info=FALSE)
 {
   stopifnot(is(input, "sr_facet"))
   wt <- attributes(input)$wt
@@ -131,7 +131,7 @@ solr_parse.sr_facet <- function(input, parsetype=NULL, concat=',')
 #' @method solr_parse sr_high
 #' @export
 #' @rdname solr_parse
-solr_parse.sr_high <- function(input, parsetype='list', concat=',')
+solr_parse.sr_high <- function(input, parsetype='list', concat=',',info=FALSE)
 {
   stopifnot(is(input, "sr_high"))
   wt <- attributes(input)$wt
@@ -246,7 +246,7 @@ solr_parse.sr_search <- function(input, parsetype='list', concat=',',info=FALSE)
 #' @method solr_parse sr_mlt
 #' @export
 #' @rdname solr_parse
-solr_parse.sr_mlt <- function(input, parsetype='list', concat=',')
+solr_parse.sr_mlt <- function(input, parsetype='list', concat=',',info=FALSE)
 {
   stopifnot(is(input, "sr_mlt"))
   wt <- attributes(input)$wt
@@ -334,7 +334,7 @@ solr_parse.sr_mlt <- function(input, parsetype='list', concat=',')
 #' @method solr_parse sr_stats
 #' @export
 #' @rdname solr_parse
-solr_parse.sr_stats <- function(input, parsetype='list', concat=',')
+solr_parse.sr_stats <- function(input, parsetype='list', concat=',',info=FALSE)
 {
   stopifnot(is(input, "sr_stats"))
   wt <- attributes(input)$wt
@@ -469,7 +469,7 @@ solr_parse.sr_stats <- function(input, parsetype='list', concat=',')
 #' @method solr_parse sr_group
 #' @export
 #' @rdname solr_parse
-solr_parse.sr_group <- function(input, parsetype='list', concat=',')
+solr_parse.sr_group <- function(input, parsetype='list', concat=',',info=FALSE)
 {
   stopifnot(is(input, "sr_group"))
   wt <- attributes(input)$wt
