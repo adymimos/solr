@@ -184,7 +184,7 @@ solr_parse.sr_high <- function(input, parsetype='list', concat=',')
 #' @method solr_parse sr_search
 #' @export
 #' @rdname solr_parse
-solr_parse.sr_search <- function(input, parsetype='list', concat=',')
+solr_parse.sr_search <- function(input, parsetype='list', concat=',',info=FALSE)
 {
   stopifnot(is(input, "sr_search"))
   wt <- attributes(input)$wt
@@ -232,7 +232,14 @@ solr_parse.sr_search <- function(input, parsetype='list', concat=',')
   } else {
     datout <- input
   }
-
+  if(wt=='json' && info = TRUE)
+  {
+      records <- input$response$numFound
+      time <- input$responseHeader$QTime
+      df <- data.frame(records,time)
+      return( list(search_info = replacelen0(df),
+               search_records = replacelen0(datout)) )
+  }
   return( datout )
 }
 
