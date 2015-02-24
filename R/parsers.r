@@ -232,7 +232,7 @@ solr_parse.sr_search <- function(input, parsetype='list', concat=',',info=FALSE)
   } else {
     datout <- input
   }
-  if(wt=='json' && info = TRUE)
+  if(wt=='json' && info == TRUE)
   {
       records <- input$response$numFound
       time <- input$responseHeader$QTime
