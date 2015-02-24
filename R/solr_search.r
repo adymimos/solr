@@ -109,6 +109,7 @@ solr_search <- function(q='*:*', sort=NULL, start=NULL, rows=NULL, pageDoc=NULL,
   
   # additional parameters
   args <- c(args, list(...))
+  args <- args[!names(args) %in% "info"]
   if('query' %in% names(args)){
     args <- args[!names(args) %in% "q"]
   }
