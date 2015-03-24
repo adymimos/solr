@@ -119,9 +119,14 @@ solr_search <- function(q='*:*', sort=NULL, start=NULL, rows=NULL, pageDoc=NULL,
   }
   # additional parameters
   args <- c(args, list(...))
+  
   args <- args[!names(args) %in% "info"]
   if('query' %in% names(args)){
     args <- args[!names(args) %in% "q"]
+  }
+  if(SPATIAL == FALSE)
+  {
+    args <- args[!names(args) %in% c('sfield','point','d')]
   }
 
   out <- structure(solr_GET(base, args, callopts, verbose), class="sr_search", wt=wt)
